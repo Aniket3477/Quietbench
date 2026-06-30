@@ -1,11 +1,26 @@
-import { useState } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Outlet, Link, useLocation } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
 import { Toaster } from './Toaster';
 
 export function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const titles: Record<string, string> = {
+      '/': 'Quietbench | Developer Utilities',
+      '/json-formatter': 'JSON Formatter - Quietbench',
+      '/regex-tester': 'Regex Tester - Quietbench',
+      '/cron-builder': 'Cron Builder - Quietbench',
+      '/contrast-checker': 'Contrast Checker - Quietbench',
+      '/api-tester': 'API Tester - Quietbench',
+      '/about': 'About - Quietbench',
+      '/contact': 'Contact - Quietbench',
+    };
+    document.title = titles[location.pathname] || 'Quietbench';
+  }, [location]);
 
   return (
     <div className="flex min-h-screen w-full bg-background">
